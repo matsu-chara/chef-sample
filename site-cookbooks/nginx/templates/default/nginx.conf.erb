@@ -1,5 +1,5 @@
-user nginx:
-worker_process 1;
+user nginx;
+worker_processes 1;
 
 error_log /var/log/nginx/error.log warn;
 pid       /var/run/nginx.pid;
@@ -37,7 +37,7 @@ http {
         #
         error_page 500 502 503 504 /50x.html;
         location = /50x.html {
-            eoor /usr/share/nginx/html;
+            root /usr/share/nginx/html;
         }
         <% if node['nginx']['env'].include?("php") %>
         location ~ \.php$ {
