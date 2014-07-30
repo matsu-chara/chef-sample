@@ -92,14 +92,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "chef_solo" do |chef|
     chef.cookbooks_path = [ "./cookbooks", "./site-cookbooks"]
     chef.json = {
+        mysql: {
+            server_root_password: 'rootpass'
+        },
         nginx: {
             env: ["php"]
+        },
+        authorization: {
+            sudo: {
+                groups: ["vagrant", "admin", "wheel"],
+                users: ["vagrant"],
+                passwordless: true
+            }
         }
     }
     chef.run_list = %w[
         recipe[yum-epel]
+        recipe[yum-remi]
+        recipe[sudo]
         recipe[nginx]
-        recipe[php-env]
+        recipe[mysql]
+        recipe[php-env::php55]
+        recipe[git]
+        recipe[zsh]
+        recipe[vim]
+        recipe[user]
+        recipe[user::matsu_chara]
     ]
   end
 

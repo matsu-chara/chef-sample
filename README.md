@@ -13,3 +13,6 @@ https://github.com/wdpress/Chef_Practical_Guide/
 * mysql
 * fluentd
 
+memo:  
+vagrant ssh -c "sudo yum remove mysql*"がないと
+コケる
